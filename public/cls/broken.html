@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLS — broken</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <script src="/shared/vitals.js" defer></script>
+</head>
+<body data-case="cls">
+  <header class="site-header"><a href="/">← Web Vitals case</a><span>CLS</span></header>
+
+  <main class="container">
+    <div id="promo-slot"></div>
+
+    <h1>Hiking gear</h1>
+
+    <div class="grid">
+      <article class="card"><img src="/images/product-1.png" alt="Backpack">
+        <div class="body"><h3>Trail backpack 30L</h3><p class="muted">$129</p><button>Add to cart</button></div></article>
+      <article class="card"><img src="/images/product-2.png" alt="Trekking poles">
+        <div class="body"><h3>Trekking poles</h3><p class="muted">$59</p><button>Add to cart</button></div></article>
+      <article class="card"><img src="/images/product-3.png" alt="Jacket">
+        <div class="body"><h3>Waterproof jacket</h3><p class="muted">$199</p><button>Add to cart</button></div></article>
+      <article class="card"><img src="/images/product-4.png" alt="Headlamp">
+        <div class="body"><h3>Headlamp 400lm</h3><p class="muted">$39</p><button>Add to cart</button></div></article>
+      <article class="card"><img src="/images/product-5.png" alt="Bottle">
+        <div class="body"><h3>Insulated bottle</h3><p class="muted">$29</p><button>Add to cart</button></div></article>
+      <article class="card"><img src="/images/product-6.png" alt="Boots">
+        <div class="body"><h3>Hiking boots</h3><p class="muted">$169</p><button>Add to cart</button></div></article>
+    </div>
+  </main>
+
+  <script>
+    fetch('/api/promo')
+      .then(function (r) { return r.json(); })
+      .then(function (promo) {
+        var banner = document.createElement('div');
+        banner.className = 'promo';
+        banner.textContent = promo.text;
+        document.getElementById('promo-slot').appendChild(banner);
+      });
+  </script>
+</body>
+</html>

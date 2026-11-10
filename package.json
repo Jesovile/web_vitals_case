@@ -1,0 +1,17 @@
+{
+  "name": "web-vitals-case",
+  "version": "1.0.0",
+  "description": "Demonstration and training case: common Core Web Vitals mistakes and how to fix them",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "start:fast": "THROTTLE_KBPS=0 node server/index.js",
+    "start:solution": "STATIC_DIR=solution node server/index.js",
+    "images": "node scripts/generate-images.js"
+  },
+  "license": "MIT"
+}

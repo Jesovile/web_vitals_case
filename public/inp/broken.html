@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INP — broken</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <script src="/shared/vitals.js" defer></script>
+  <script src="/inp/catalog.js" defer></script>
+</head>
+<body data-case="inp">
+  <header class="site-header"><a href="/">← Web Vitals case</a><span>INP</span></header>
+
+  <main class="container">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search products, e.g. “alpine tent”" autocomplete="off">
+      <span class="badge" id="cart">Cart: 0</span>
+    </div>
+    <p class="muted" id="summary"></p>
+    <ul class="rows" id="list"></ul>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var search = document.getElementById('search');
+      var list = document.getElementById('list');
+      var summary = document.getElementById('summary');
+      var cartBadge = document.getElementById('cart');
+      var cart = [];
+
+      function renderList() {
+        var q = search.value.trim().toLowerCase();
+        var matches = CATALOG.filter(function (p) { return p.name.toLowerCase().indexOf(q) !== -1; });
+
+        list.innerHTML = matches.map(function (p) {
+          return '<li class="row"><span>' + p.name + '</span><b>$' + p.price + '</b>' +
+                 '<button data-id="' + p.id + '">Add</button></li>';
+        }).join('');
+
+        var rows = list.children;
+        for (var i = 0; i < Math.min(rows.length, 400); i++) {
+          rows[i].style.minHeight = rows[i].offsetWidth > 600 ? '42px' : '48px';
+        }
+
+        summary.textContent = matches.length + ' products';
+        blockFor(150); // analytics: track search
+      }
+
+      search.addEventListener('input', renderList);
+
+      list.addEventListener('click', function (e) {
+        var btn = e.target.closest('button');
+        if (!btn) return;
+        var product = CATALOG[btn.dataset.id];
+        cart.push(product);
+
+        blockFor(250); // analytics: track "add to cart"
+        localStorage.setItem('cart', JSON.stringify(cart.concat(CATALOG)));
+        blockFor(100); // recalculate recommendations
+
+        cartBadge.textContent = 'Cart: ' + cart.length;
+        btn.textContent = 'Added ✓';
+      });
+
+      renderList();
+    });
+  </script>
+</body>
+</html>

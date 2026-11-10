@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collected metrics</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <style>
+    .good { color: var(--good); }
+    .needs-improvement { color: var(--ni); }
+    .poor { color: var(--poor); }
+    td.detail { max-width: 420px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><a href="/">← Web Vitals case</a><span>RUM</span></header>
+  <main class="container">
+    <h1>Collected metrics</h1>
+    <p class="muted">
+      Final values sent by <code>/shared/vitals.js</code> via <code>navigator.sendBeacon</code> when a demo page is
+      hidden or closed (switch tabs or navigate away to send them). Stored in server memory, newest first.
+    </p>
+    <table>
+      <thead><tr><th>Time</th><th>Page</th><th>Metric</th><th>Value</th><th>Rating</th><th>Attribution</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="6" class="muted">No data yet.</td></tr></tbody>
+    </table>
+  </main>
+  <script>
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    async function load() {
+      var data = await fetch('/api/vitals').then(function (r) { return r.json(); });
+      if (!data.length) return;
+      document.getElementById('rows').innerHTML = data.map(function (m) {
+        var value = m.name === 'CLS' ? m.value.toFixed(3) : Math.round(m.value) + ' ms';
+        return '<tr><td>' + esc(m.time.slice(11, 19)) + '</td><td>' + esc(m.page) + '</td><td>' + esc(m.name) +
+          '</td><td>' + value + '</td><td class="' + esc(m.rating) + '">' + esc(m.rating) +
+          '</td><td class="detail" title="' + esc(m.detail) + '">' + esc(m.detail) + '</td></tr>';
+      }).join('');
+    }
+    load();
+    setInterval(load, 3000);
+  </script>
+</body>
+</html>

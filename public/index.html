@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Vitals case</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+</head>
+<body>
+  <header class="site-header"><a href="/">Web Vitals case</a><a href="/vitals.html">Collected metrics (RUM) →</a></header>
+
+  <main class="container">
+    <h1>Web Vitals case</h1>
+    <p>
+      Each page below has a performance problem. Find out what hurts the metric and fix it.
+      A live panel on each page shows the metrics measured by the
+      <a href="https://github.com/GoogleChrome/web-vitals">web-vitals</a> library with attribution.
+    </p>
+    <p class="muted">
+      Use Chrome. Open DevTools → Performance (live metrics) / Network panel to see what happens.
+      Reload with the tab in the foreground; LCP is not reported for pages loaded in the background.
+    </p>
+
+    <div class="cases">
+      <section class="card">
+        <h2>LCP</h2>
+        <p>Largest Contentful Paint – when the main content becomes visible.</p>
+        <div class="links"><a href="/lcp/broken.html">Open case →</a></div>
+      </section>
+      <section class="card">
+        <h2>CLS</h2>
+        <p>Cumulative Layout Shift – how much the page jumps around.</p>
+        <div class="links"><a href="/cls/broken.html">Open case →</a></div>
+      </section>
+      <section class="card">
+        <h2>INP</h2>
+        <p>Interaction to Next Paint – how fast the page responds to input.</p>
+        <div class="links"><a href="/inp/broken.html">Open case →</a></div>
+      </section>
+      <section class="card">
+        <h2>FCP</h2>
+        <p>First Contentful Paint – when the user first sees anything.</p>
+        <div class="links"><a href="/fcp/broken.html">Open case →</a></div>
+      </section>
+      <section class="card">
+        <h2>TTFB</h2>
+        <p>Time to First Byte – how fast the server starts responding.</p>
+        <div class="links"><a href="/ttfb/broken">Open case →</a></div>
+      </section>
+    </div>
+
+    <h2>Thresholds (75th percentile of page loads)</h2>
+    <table>
+      <thead><tr><th>Metric</th><th>Good</th><th>Needs improvement</th><th>Poor</th></tr></thead>
+      <tbody>
+        <tr><td>LCP</td><td>≤ 2.5 s</td><td>≤ 4 s</td><td>&gt; 4 s</td></tr>
+        <tr><td>CLS</td><td>≤ 0.1</td><td>≤ 0.25</td><td>&gt; 0.25</td></tr>
+        <tr><td>INP</td><td>≤ 200 ms</td><td>≤ 500 ms</td><td>&gt; 500 ms</td></tr>
+        <tr><td>FCP</td><td>≤ 1.8 s</td><td>≤ 3 s</td><td>&gt; 3 s</td></tr>
+        <tr><td>TTFB</td><td>≤ 0.8 s</td><td>≤ 1.8 s</td><td>&gt; 1.8 s</td></tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

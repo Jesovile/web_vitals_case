@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# IDE
+.idea/
+
+# Reference solution (kept locally, not published)
+solution/

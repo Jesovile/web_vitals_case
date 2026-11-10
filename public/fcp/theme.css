@@ -1,0 +1,16 @@
+/*
+ * "Theme" stylesheet – imagine a big CSS bundle or a third-party UI kit served from another origin.
+ * In the demo it is requested through /slow/3200/… so the server answers after 3.2 seconds.
+ */
+.article {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(20, 30, 60, 0.08);
+}
+.article h1 {
+  color: #18305e;
+}
+.article blockquote {
+  color: #445;
+  border-left-color: #2f6fde;
+}

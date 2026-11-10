@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LCP — broken</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <script src="/shared/vitals.js" defer></script>
+</head>
+<body data-case="lcp">
+  <header class="site-header"><a href="/">← Web Vitals case</a><span>LCP</span></header>
+
+  <main class="container">
+    <section class="hero" id="hero"></section>
+
+    <h1>Explore the mountains</h1>
+    <p class="muted">Guided tours, gear rental and the best trails in the region.</p>
+  </main>
+
+  <script>
+    fetch('/api/hero')
+      .then(function (r) { return r.json(); })
+      .then(function (hero) {
+        var img = document.createElement('img');
+        img.className = 'hero-img';
+        img.alt = hero.alt;
+        img.loading = 'lazy';
+        img.src = hero.src;
+        document.getElementById('hero').appendChild(img);
+      });
+  </script>
+</body>
+</html>
